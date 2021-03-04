@@ -2,15 +2,37 @@ Package: NiceNumbERRR
 Title: What the Package Does (One Line, Title Case)
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "Jayme",
+           family = "Gordon",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to
-    pick a license
+           email = "jaymegordo@gmail.com")
+    person(given = "Cameron",
+           family = "Harris",
+           role = c("aut", "cre"),
+           email = "first.last@example.com")
+    person(given = "Guanshu",
+           family = "Tao",
+           role = c("aut", "cre"),
+           email = "first.last@example.com")
+    person(given = "Zhiyong",
+           family = "Wang",
+           role = c("aut", "cre"),
+           email = "william.calix.cn@gmail.com")
+Description: This R package provides basic functions that make numbers display nicely. 
+             In most real-world problems, the datasets are raw and we need to deal with 
+             number formats to make them readable for humans or for computers. 
+             Usually, a few or more lines of coding are needed while dealing with 
+             number-display problems so we are thinking of compressing the time and 
+             programming work on this issue. This package solves this kind of 
+             problems in a way of transfer forward and backward from long digit 
+             numbers to human-readable ones. There are functions doing single 
+             number transactions, column transactions from a pandas data frame, 
+             and displaying colors of input numbers.
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3

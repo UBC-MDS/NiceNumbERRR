@@ -9,11 +9,11 @@ Authors@R:
     person(given = "Cameron",
            family = "Harris",
            role = c("aut", "cre"),
-           email = "first.last@example.com")
+           email = "camharris22@gmail.com")
     person(given = "Guanshu",
            family = "Tao",
            role = c("aut", "cre"),
-           email = "first.last@example.com")
+           email = "guanshu@ualberta.ca")
     person(given = "Zhiyong",
            family = "Wang",
            role = c("aut", "cre"),

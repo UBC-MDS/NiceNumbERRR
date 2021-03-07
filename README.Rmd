@@ -18,8 +18,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of NiceNumbERRR is to ...
-
+This R package provides basic functions that make numbers display nicely. In most real-world problems, the datasets are raw and we need to deal with number formats to make them readable for humans or for computers. Usually, a few or more lines of coding are needed while dealing with number-display problems so we are thinking of compressing the time and programming work on this issue. This package solves this kind of problems in a way of transfer forward and backward from long digit numbers to human-readable ones. There are functions doing single number transactions, column transactions from a data frame, and displaying colors of input numbers.  
 ## Installation
 
 You can install the released version of NiceNumbERRR from [CRAN](https://CRAN.R-project.org) with:
@@ -32,29 +31,55 @@ And the development version from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("GuanshuTao/NiceNumbERRR")
+devtools::install_github("UBC-MDS/NiceNumbERRR")
+
 ```
+
+## Features
+
+The package contains the following five functions:
+
+
+- `to_human`
+
+This function converts numeric value to human-readable string representations. Users need to use a specific number as input and choose decimal precision and prefixes of filesize or numbers as optionals. The function will return a human-readable string.
+
+- `to_numeric`
+
+This function converts a human-readble value to a Python readable numeric value. Users need to use a specific human-readable string of numbers as input and choose the prefixes of filesize or numbers as optionals. The function will return a float.
+
+- `to_df`
+
+This function changes the formatting of text in one or more columns of data in a dataframe. The inputs should include a data frame, column name(s), and two optionals: transform type(eg. human) and type of prefixes. The function will return a dataframe with the values from the input columns transferred to the transform type(human-readable by default).
+
+- `to_color`
+
+This function separate numeric values to parts starting from the right and each part contains three digits. Then it gives different colors to each part and the default colors are red, green, yellow, and blue. Users need to use a specific number as input and choose a list of colors they want to assign on the number as an optional. The function will return a string that can be used in print() function to visual numbers with colors.
+
+
+
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+This is a basic example which shows how to generate summary statistics and conduct moving average modelling:
 
 ```{r example}
-library(NiceNumbERRR)
-## basic example code
+#install.packages("NiceNumbERRR")
+#library(NiceNumbERRR)
+#to_human(78950000, prec = 0, family = "numeric") 
+#to_color(1234, c('red', 'yellow'))
+
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
+## R Ecosystem
 
-```{r cars}
-summary(cars)
-```
+There are many R packages that have similar functionalities with this package in the Python ecosystem. For example:
 
-You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date. `devtools::build_readme()` is handy for this. You could also use GitHub Actions to re-render `README.Rmd` every time you push. An example workflow can be found here: <https://github.com/r-lib/actions/tree/master/examples>.
 
-You can also embed plots, for example:
+- [humanReadable](https://www.rdocumentation.org/packages/gdata/versions/2.18.0/topics/humanReadable) converts integer byte sizes to a human readable units such as kB, MB, GB, etc.
+- [humanize](https://github.com/gerrymanoim/humanize) provides utilities to convert values (times, files sizes, and numbers) into human readable forms.
 
-```{r pressure, echo = FALSE}
-plot(pressure)
-```
+- [prettyunits](https://github.com/r-lib/prettyunits) works just like `humanize`, it formats times and file-sizes quantities in human readable form.
 
-In that case, don't forget to commit and push the resulting figure files, so they display on GitHub and CRAN.
+
+We aim to optimize those existing packages so that the users can use one package instead of using several packages at the same time.
+

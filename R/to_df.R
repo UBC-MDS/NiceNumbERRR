@@ -8,17 +8,17 @@
 #' @return dataframe with formatting applied
 #' @export
 #'
-#' @examples to_df(df, col_names=c('A', 'B'), transform_type='human')
+#' @examples to_df(df, col_names=c("A", "B"), transform_type="human")
 #'
 
-to_df <- function(df, col_names = NULL, transform_type = 'human', family = "numeric") {
+to_df <- function(df, col_names = NULL, transform_type = "human", family = "numeric") {
   if (is.null(col_names)) {
     col_names <-  colnames(df)
   }
 
-  if (transform_type == 'human') {
-    df[] <- map_at(df, col_names, ~ to_human_fake(.))
-  } else if (transform_type == 'num') {
+  if (transform_type == "human") {
+    df[] <- map_at(df, col_names, ~ to_human(.))
+  } else if (transform_type == "num") {
     df[] <- map_at(df, col_names, ~ to_numeric(.))
   }
 

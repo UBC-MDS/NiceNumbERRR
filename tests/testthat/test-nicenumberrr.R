@@ -56,3 +56,5 @@ test_to_df <- function() {
 test_to_color <- function() {
     
 }
+
+test_all()

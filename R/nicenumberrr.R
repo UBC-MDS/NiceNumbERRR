@@ -1,3 +1,25 @@
+library(stringr)
+library(tidyverse)
+
+suffixes <- list(
+    number = c('K', 'M', 'B', 'T', 'Q'),
+    filesize= c('KB', 'MB', 'GB', 'TB', 'PB'))
+
+
+throw_err <- function(err, errors) {
+    if (errors == "coerce"){
+        return (NA)
+    }
+    else {
+        stop(err)
+    }
+}
+
+check_family <- function(family) {
+    
+}
+
+
 #' Convert large number to human readable string
 #'
 #' @param number float
@@ -10,8 +32,14 @@
 #' @examples to_human(69420, prec = 1)
 #' "69.4K"
 #'
-to_human <- function(number, prec = 0, family = "numeric") {
-  
+to_human <- function(number, prec = 0, family = "number", errors = "throw", custom_suff = NULL) {
+    
+    if (!is.numeric(number)) {
+        err <- "Value must be numeric!"
+        throw_err(err, errors)
+    }
+
+
 }
 
 
@@ -29,19 +57,9 @@ to_human <- function(number, prec = 0, family = "numeric") {
 #'
 #' @examples to_numeric("69.4K")
 #' 69400
-library(stringr)
-library(tidyverse)
-suffix <- list(number = c('K', 'M', 'B', 'T', 'Q'), filesize= c('KB', 'MB', 'GB', 'TB', 'PB'))
 to_numeric <- function(string,  family = "number", errors = "throw", custom_suff = NULL) {
   
-  throw_err <- function(err, errors){
-    if (errors == "coerce"){
-      return (NA)
-    }
-    else {
-      stop(err)
-    }
-  }
+
   
   if (is.character({{string}}) == TRUE ){
     base = 1000
@@ -55,10 +73,10 @@ to_numeric <- function(string,  family = "number", errors = "throw", custom_suff
       return (n*base**(which(custom_suff == unit)))
     }
     else if ({{family}} == "number") {
-      return (n*base**(which(suffix$number == unit)))
+      return (n*base**(which(suffixes$number == unit)))
     }
     else if ({{family}} == "filesize"){
-      return (n*base**(which(suffix$filesize == unit)))
+      return (n*base**(which(suffixes$filesize == unit)))
     }
     else {
       err <- "Invalid input for custom_suff or family."

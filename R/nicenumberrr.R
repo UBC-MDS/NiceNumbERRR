@@ -16,15 +16,21 @@ throw_err <- function(err, errors) {
 }
 
 check_family <- function(family) {
-    
+    if (!family %in% names(suffixes)) {
+        stop("Family not in suffixes")
+    }
 }
 
 
 #' Convert large number to human readable string
 #'
-#' @param number float
+#' @param n number to convert float
 #' @param prec precision to round to
 #' @param family family of suffix, numeric or filesize
+#' @param custom_suff List of custom suffixes, default NULL
+#' @param errors 'raise', 'coerce', default 'raise'
+#'                If 'raise', then invalid parsing will raise an exception.
+#'                If 'coerce', then invalid parsing will return NA.
 #'
 #' @return string in human readable version
 #' @export
@@ -32,14 +38,48 @@ check_family <- function(family) {
 #' @examples to_human(69420, prec = 1)
 #' "69.4K"
 #'
-to_human <- function(number, prec = 0, family = "number", errors = "throw", custom_suff = NULL) {
+to_human <- function(n, prec = 0, family = "number", errors = "raise", custom_suff = NULL) {
     
-    if (!is.numeric(number)) {
+    if (!is.numeric(n)) {
         err <- "Value must be numeric!"
-        throw_err(err, errors)
+        return(throw_err(err, errors))
     }
 
+    check_family(family)
 
+    base <- 3
+    if (n == 0) {
+        order <- 0
+    } else {
+        order <- log10(abs(n)) %/% 1
+    }
+
+    idx <- as.integer(order / base)
+    number <- n / 10^(3 * idx)
+
+    # check if custom suffix passed in
+    if (!is.null(custom_suff)) {
+        suffix_list <- custom_suff 
+    } else {
+        suffix_list <- suffixes[[family]]
+    }
+
+    # check max length
+    max_len <- length(suffix_list)
+
+    if (idx > max_len) {
+        err <- "Number too large for conversion!"
+        return(throw_err(err, errors))
+    }
+
+    if (idx == 0) {
+        suffix <- ""
+    } else {
+        suffix <- suffix_list[[idx]]
+    }
+
+    str_prec <- paste0("%.", prec, "f")
+    paste0(sprintf(str_prec, round(number, prec)), suffix)
 }
 
 
@@ -57,7 +97,7 @@ to_human <- function(number, prec = 0, family = "number", errors = "throw", cust
 #'
 #' @examples to_numeric("69.4K")
 #' 69400
-to_numeric <- function(string,  family = "number", errors = "throw", custom_suff = NULL) {
+to_numeric <- function(string,  family = "number", errors = "raise", custom_suff = NULL) {
   
 
   

@@ -16,7 +16,7 @@ throw_err <- function(err, errors) {
 }
 
 check_family <- function(family) {
-    
+
 }
 
 
@@ -33,7 +33,7 @@ check_family <- function(family) {
 #' "69.4K"
 #'
 to_human <- function(number, prec = 0, family = "number", errors = "throw", custom_suff = NULL) {
-    
+
     if (!is.numeric(number)) {
         err <- "Value must be numeric!"
         throw_err(err, errors)
@@ -58,9 +58,9 @@ to_human <- function(number, prec = 0, family = "number", errors = "throw", cust
 #' @examples to_numeric("69.4K")
 #' 69400
 to_numeric <- function(string,  family = "number", errors = "throw", custom_suff = NULL) {
-  
 
-  
+
+
   if (is.character({{string}}) == TRUE ){
     base = 1000
     string <- str_replace_all({{string}}, '^[\\D]+','') %>%
@@ -90,7 +90,7 @@ to_numeric <- function(string,  family = "number", errors = "throw", custom_suff
     err <- "Wrong input type for string, should be a number or string."
     throw_err(err, errors)
   }
-  
+
 }
 
 
@@ -111,27 +111,57 @@ to_df <- function(df, col_names = NULL, transform_type = "human", family = "nume
   if (is.null(col_names)) {
     col_names <-  colnames(df)
   }
-  
+
   if (transform_type == "human") {
     df[] <- map_at(df, col_names, ~ to_human(.))
   } else if (transform_type == "num") {
     df[] <- map_at(df, col_names, ~ to_numeric(.))
   }
-  
+
   return(df)
 }
 
 
 #' Give all parts of the number with different colors
 #'
-#' @param number int
+#' @param number integer
 #' @param colors vector of different colors
 #'
 #' @return vector of colored int
 #' @export
 #'
-#' @examples to_color(1234, c('red', 'yellow'))
-to_color <- function(number, colors) {
-  
+#' @examples to_color(1234567L, c("red", "green", "yellow", "blue"))
+to_color <- function(number, colors = c("red", "green", "yellow", "blue")) {
+  if (!is.integer(number)) {
+    stop("Can only support integer number")
+  }
+
+  n_str <- unlist(strsplit(as.character(number), ""))
+
+  col_escape <- function(col) {
+    paste0("\033[", col, "m")
+  }
+
+  palettes <- c(
+    "black" = "30",
+    "red" = "31",
+    "green" = "32",
+    "yellow" = "33",
+    "blue" = "34",
+    "purple" = "35",
+    "cyan" = "36",
+    "light gray" = "37"
+  )
+
+  ans <- ""
+  for (i in seq_along(n_str)) {
+    col <- palettes[tolower(colors[i%%length(colors)+1])]
+    init <- col_escape(col)
+    reset <- col_escape("0")
+    tmp <- paste0(init, n_str[i], reset)
+    ans <-  paste0(ans, tmp)
+  }
+
+  ans
 }
 

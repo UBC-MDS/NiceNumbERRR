@@ -2,13 +2,14 @@ library(stringr)
 library(tidyverse)
 
 suffixes <- list(
-    number = c('K', 'M', 'B', 'T', 'Q'),
-    filesize= c('KB', 'MB', 'GB', 'TB', 'PB'))
+    number = c("K", "M", "B", "T", "Q"),
+    filesize = c("KB", "MB", "GB", "TB", "PB")
+)
 
 
 throw_err <- function(err, errors) {
-    if (errors == "coerce"){
-        return (NA)
+    if (errors == "coerce") {
+        return(NA)
     }
     else {
         stop(err)
@@ -35,11 +36,10 @@ check_family <- function(family) {
 #' @return string in human readable version
 #' @export
 #'
-#' @examples to_human(69420, prec = 1)
+#' @examples
+#' to_human(69420, prec = 1)
 #' "69.4K"
-#'
 to_human <- function(n, prec = 0, family = "number", errors = "raise", custom_suff = NULL) {
-    
     if (!is.numeric(n)) {
         err <- "Value must be numeric!"
         return(throw_err(err, errors))
@@ -59,7 +59,7 @@ to_human <- function(n, prec = 0, family = "number", errors = "raise", custom_su
 
     # check if custom suffix passed in
     if (!is.null(custom_suff)) {
-        suffix_list <- custom_suff 
+        suffix_list <- custom_suff
     } else {
         suffix_list <- suffixes[[family]]
     }
@@ -95,43 +95,39 @@ to_human <- function(n, prec = 0, family = "number", errors = "raise", custom_su
 #' @return a computer-readable numeric number
 #' @export
 #'
-#' @examples to_numeric("69.4K")
+#' @examples
+#' to_numeric("69.4K")
 #' 69400
-to_numeric <- function(string,  family = "number", errors = "raise", custom_suff = NULL) {
-  
-
-
-
-  if (is.character({{string}}) == TRUE ){
-    base = 1000
-    string <- str_replace_all({{string}}, '^[\\D]+','') %>%
-      toupper()
-    n <- (str_split(string, "[$[:alpha:]]+") %>%
+to_numeric <- function(string, family = "number", errors = "raise", custom_suff = NULL) {
+    if (is.character({{ string }}) == TRUE) {
+        base <- 1000
+        string <- str_replace_all({{ string }}, "^[\\D]+", "") %>%
+            toupper()
+        n <- (str_split(string, "[$[:alpha:]]+") %>%
             unlist())[1] %>%
-      as.double()
-    unit <- str_extract_all(string, "[[:alpha:]]+")[[1]]
-    if (is.null(custom_suff) != TRUE){
-      return (n*base**(which(custom_suff == unit)))
+            as.double()
+        unit <- str_extract_all(string, "[[:alpha:]]+")[[1]]
+        if (is.null(custom_suff) != TRUE) {
+            return(n * base**(which(custom_suff == unit)))
+        }
+        else if ({{ family }} == "number") {
+            return(n * base**(which(suffixes$number == unit)))
+        }
+        else if ({{ family }} == "filesize") {
+            return(n * base**(which(suffixes$filesize == unit)))
+        }
+        else {
+            err <- "Invalid input for custom_suff or family."
+            throw_err(err, errors)
+        }
     }
-    else if ({{family}} == "number") {
-      return (n*base**(which(suffixes$number == unit)))
-    }
-    else if ({{family}} == "filesize"){
-      return (n*base**(which(suffixes$filesize == unit)))
+    else if (is.double({{ string }}) == TRUE) {
+        return({{ string }})
     }
     else {
-      err <- "Invalid input for custom_suff or family."
-      throw_err(err, errors)
+        err <- "Wrong input type for string, should be a number or string."
+        throw_err(err, errors)
     }
-  }
-  else if (is.double({{string}}) == TRUE){
-    return ({{string}})
-  }
-  else{
-    err <- "Wrong input type for string, should be a number or string."
-    throw_err(err, errors)
-  }
-
 }
 
 
@@ -145,21 +141,20 @@ to_numeric <- function(string,  family = "number", errors = "raise", custom_suff
 #' @return dataframe with formatting applied
 #' @export
 #'
-#' @examples to_df(df, col_names=c("A", "B"), transform_type="human")
-#'
-#'
+#' @examples
+#' to_df(df, col_names = c("A", "B"), transform_type = "human")
 to_df <- function(df, col_names = NULL, transform_type = "human", family = "numeric") {
-  if (is.null(col_names)) {
-    col_names <-  colnames(df)
-  }
+    if (is.null(col_names)) {
+        col_names <- colnames(df)
+    }
 
-  if (transform_type == "human") {
-    df[] <- map_at(df, col_names, ~ to_human(.))
-  } else if (transform_type == "num") {
-    df[] <- map_at(df, col_names, ~ to_numeric(.))
-  }
+    if (transform_type == "human") {
+        df[] <- map_at(df, col_names, ~ to_human(.))
+    } else if (transform_type == "num") {
+        df[] <- map_at(df, col_names, ~ to_numeric(.))
+    }
 
-  return(df)
+    return(df)
 }
 
 
@@ -171,38 +166,38 @@ to_df <- function(df, col_names = NULL, transform_type = "human", family = "nume
 #' @return vector of colored int
 #' @export
 #'
-#' @examples to_color(1234567L, c("red", "green", "yellow", "blue"))
+#' @examples
+#' to_color(1234567L, c("red", "green", "yellow", "blue"))
 to_color <- function(number, colors = c("red", "green", "yellow", "blue")) {
-  if (!is.integer(number)) {
-    stop("Can only support integer number")
-  }
+    if (!is.integer(number)) {
+        stop("Can only support integer number")
+    }
 
-  n_str <- unlist(strsplit(as.character(number), ""))
+    n_str <- unlist(strsplit(as.character(number), ""))
 
-  col_escape <- function(col) {
-    paste0("\033[", col, "m")
-  }
+    col_escape <- function(col) {
+        paste0("\033[", col, "m")
+    }
 
-  palettes <- c(
-    "black" = "30",
-    "red" = "31",
-    "green" = "32",
-    "yellow" = "33",
-    "blue" = "34",
-    "purple" = "35",
-    "cyan" = "36",
-    "light gray" = "37"
-  )
+    palettes <- c(
+        "black" = "30",
+        "red" = "31",
+        "green" = "32",
+        "yellow" = "33",
+        "blue" = "34",
+        "purple" = "35",
+        "cyan" = "36",
+        "light gray" = "37"
+    )
 
-  ans <- ""
-  for (i in seq_along(n_str)) {
-    col <- palettes[tolower(colors[i%%length(colors)+1])]
-    init <- col_escape(col)
-    reset <- col_escape("0")
-    tmp <- paste0(init, n_str[i], reset)
-    ans <-  paste0(ans, tmp)
-  }
+    ans <- ""
+    for (i in seq_along(n_str)) {
+        col <- palettes[tolower(colors[i %% length(colors) + 1])]
+        init <- col_escape(col)
+        reset <- col_escape("0")
+        tmp <- paste0(init, n_str[i], reset)
+        ans <- paste0(ans, tmp)
+    }
 
-  ans
+    ans
 }
-

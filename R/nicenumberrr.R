@@ -45,6 +45,10 @@ to_human <- function(n, prec = 0, family = "number", errors = "raise", custom_su
         return(throw_err(err, errors))
     }
 
+    if (!length(n) == 1) {
+        stop("Input value must be of length 1!")
+    }
+
     check_family(family)
 
     base <- 3

@@ -14,6 +14,7 @@ test_to_human <- function() {
     test_that("Expected error not raised!", {
         expect_error(f(n = 5, family = "wrong family"))
         expect_error(f(n = "5"))
+        expect_error(f(n = c(1, 2)))
         expect_error(f(n = 1e30, prec = 3, errors = "throw"))
     })
 

@@ -50,7 +50,26 @@ test_to_numeric <- function() {
 }
 
 test_to_df <- function() {
+    # toy dataframe for tests
+    test_df <- data.frame(A = c(1000, 10000), B = c(1000000, 100000))
+    human_df <- to_df(test_df, transform_type = "human")
+    num_df <- to_df(human_df, transform_type = "num")
 
+    # test expected errors raised
+    test_that("Expected error not raised!", {
+        expect_error(to_df(df = c(1, 2, 3)))
+        expect_error(to_df(test_df, col_names = 1))
+        expect_error(to_df(test_df, col_names = "X"))
+        expect_error(to_df(test_df, transform_type = "wrong type"))
+    })
+
+    # test return values
+    test_that("Incorrect return values!", {
+        expect_equal(dim(to_df(test_df)), dim(test_df))
+        expect_equal(to_df(test_df, col_names = "A")[1, 1], "1K")
+        expect_equal(to_df(human_df, col_names = "A", transform_type = "num")[1, 1], 1000)
+        expect_equal(num_df, test_df)
+    })
 }
 
 test_to_color <- function() {

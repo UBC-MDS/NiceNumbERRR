@@ -42,12 +42,13 @@ test_to_numeric <- function() {
     test_that("The output should be 99.999 for input 99.999", (
         expect_equal(to_numeric(99.999), 99.999)
     ))
-    test_that("The output should be 88800 for input '$%#$#88.8k'", (
+    test_that("The output should be 1000000000 for input '1000mb'", (
         expect_equal(to_numeric("1000mb", family = "filesize"), 1000000000)
     ))
-    test_that("The function should throw an error with this input", (
+    test_that("The function should throw an error with this input", {
         expect_error(to_numeric(list(1, 2, 3), custom_suff = list("LL")))
-    ))
+        expect_error(to_numeric("@@3333km", family  = "length"))
+    })
 }
 
 test_to_df <- function() {

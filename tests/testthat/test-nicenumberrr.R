@@ -35,16 +35,22 @@ test_to_human <- function() {
     })
 }
 
+
+
 test_to_numeric <- function() {
+    # test output for string input
     test_that("The output should be 88800 for input '$%#$#88.8k'", (
         expect_equal(to_numeric("$%#$#88.8k"), 88800)
     ))
+    # test output for number input
     test_that("The output should be 99.999 for input 99.999", (
         expect_equal(to_numeric(99.999), 99.999)
     ))
+    # test output for filesize inputs
     test_that("The output should be 1000000000 for input '1000mb'", (
         expect_equal(to_numeric("1000mb", family = "filesize"), 1000000000)
     ))
+    # test expected errors raised
     test_that("The function should throw an error with this input", {
         expect_error(to_numeric(list(1, 2, 3), custom_suff = list("LL")))
         expect_error(to_numeric("@@3333km", family  = "length"))
@@ -75,23 +81,24 @@ test_to_df <- function() {
 }
 
 test_to_color <- function() {
+    # test expected errors raised
     test_that("Non-integer value for number should throw an error", {
         expect_error(to_color("1234"))
         expect_error(to_color(1234.23))
     })
-
+    # test output for default colors
     test_that("Default Colors are correct", {
         expect_identical(to_color(123456L), "\033[32m1\033[0m\033[33m2\033[0m\033[34m3\033[0m\033[31m4\033[0m\033[32m5\033[0m\033[33m6\033[0m")
     })
-
+    # test output color with input "red"
     test_that("Red Color are correct", {
         expect_identical(to_color(123456L, c("red")), "\033[31m1\033[0m\033[31m2\033[0m\033[31m3\033[0m\033[31m4\033[0m\033[31m5\033[0m\033[31m6\033[0m")
     })
-
+    # test output color with input "blue"
     test_that("Blue Color are correct", {
         expect_identical(to_color(123456L, c("blue")), "\033[34m1\033[0m\033[34m2\033[0m\033[34m3\033[0m\033[34m4\033[0m\033[34m5\033[0m\033[34m6\033[0m")
     })
-
+    # test output color with input "yellow"
     test_that("Yellow Color are correct", {
         expect_identical(to_color(123456L, c("yellow")), "\033[33m1\033[0m\033[33m2\033[0m\033[33m3\033[0m\033[33m4\033[0m\033[33m5\033[0m\033[33m6\033[0m")
     })

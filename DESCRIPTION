@@ -37,8 +37,9 @@ Suggests:
     testthat (>= 3.0.0),
     covr,
     stringr,
-    tidyverse,
     knitr,
     rmarkdown
 Config/testthat/edition: 3
 VignetteBuilder: knitr
+Depends: 
+    tidyverse

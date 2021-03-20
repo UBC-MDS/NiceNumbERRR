@@ -24,6 +24,6 @@ Give all parts of the number with different colors
 Give all parts of the number with different colors
 }
 \examples{
-to_color(1234, c('red', 'yellow'))
-to_color(1234, c('red', 'yellow'))
+to_color(1234L, c('red', 'yellow'))
+to_color(1234L, c('red', 'yellow'))
 }

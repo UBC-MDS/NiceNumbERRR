@@ -4,6 +4,8 @@
 # NiceNumbERRR
 
 <!-- badges: start -->
+
+[![R-CMD-check](https://github.com/UBC-MDS/NiceNumbERRR/workflows/R-CMD-check/badge.svg)](https://github.com/UBC-MDS/NiceNumbERRR/actions)
 <!-- badges: end -->
 
 This R package provides basic functions that make numbers display
@@ -36,21 +38,21 @@ devtools::install_github("UBC-MDS/NiceNumbERRR")
 
 The package contains the following five functions:
 
--   `to_human`
+  - `to_human`
 
 This function converts numeric value to human-readable string
 representations. Users need to use a specific number as input and choose
 decimal precision and prefixes of filesize or numbers as optionals. The
 function will return a human-readable string.
 
--   `to_numeric`
+  - `to_numeric`
 
 This function converts a human-readble value to a Python readable
 numeric value. Users need to use a specific human-readable string of
 numbers as input and choose the prefixes of filesize or numbers as
 optionals. The function will return a float.
 
--   `to_df`
+  - `to_df`
 
 This function changes the formatting of text in one or more columns of
 data in a dataframe. The inputs should include a data frame, column
@@ -59,7 +61,7 @@ prefixes. The function will return a dataframe with the values from the
 input columns transferred to the transform type(human-readable by
 default).
 
--   `to_color`
+  - `to_color`
 
 This function separate numeric values to parts starting from the right
 and each part contains three digits. Then it gives different colors to
@@ -86,15 +88,15 @@ and conduct moving average modelling:
 There are many R packages that have similar functionalities with this
 package in the Python ecosystem. For example:
 
--   [humanReadable](https://www.rdocumentation.org/packages/gdata/versions/2.18.0/topics/humanReadable)
+  - [humanReadable](https://www.rdocumentation.org/packages/gdata/versions/2.18.0/topics/humanReadable)
     converts integer byte sizes to a human readable units such as kB,
     MB, GB, etc.
 
--   [humanize](https://github.com/gerrymanoim/humanize) provides
+  - [humanize](https://github.com/gerrymanoim/humanize) provides
     utilities to convert values (times, files sizes, and numbers) into
     human readable forms.
 
--   [prettyunits](https://github.com/r-lib/prettyunits) works just like
+  - [prettyunits](https://github.com/r-lib/prettyunits) works just like
     `humanize`, it formats times and file-sizes quantities in human
     readable form.
 

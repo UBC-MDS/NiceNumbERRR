@@ -16,6 +16,8 @@ knitr::opts_chunk$set(
 # NiceNumbERRR
 
 <!-- badges: start -->
+[![R-CMD-check](https://github.com/UBC-MDS/NiceNumbERRR/workflows/R-CMD-check/badge.svg)](https://github.com/UBC-MDS/NiceNumbERRR/actions)
+[![codecov](https://codecov.io/gh/UBC-MDS/NiceNumbERRR/branch/master/graph/badge.svg?token=MF0J6UO2ST)](https://codecov.io/gh/UBC-MDS/NiceNumbERRR)
 <!-- badges: end -->
 
 This R package provides basic functions that make numbers display nicely. In most real-world problems, the datasets are raw and we need to deal with number formats to make them readable for humans or for computers. Usually, a few or more lines of coding are needed while dealing with number-display problems so we are thinking of compressing the time and programming work on this issue. This package solves this kind of problems in a way of transfer forward and backward from long digit numbers to human-readable ones. There are functions doing single number transactions, column transactions from a data frame, and displaying colors of input numbers.  

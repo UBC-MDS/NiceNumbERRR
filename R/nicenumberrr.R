@@ -105,12 +105,12 @@ to_human <- function(n, prec = 0, family = "number", errors = "raise", custom_su
 to_numeric <- function(string, family = "number", errors = "raise", custom_suff = NULL) {
     if (is.character({{ string }}) == TRUE) {
         base <- 1000
-        string <- str_replace_all({{ string }}, "^[\\D]+", "") %>%
+        string <- stringr::str_replace_all({{ string }}, "^[\\D]+", "") %>%
             toupper()
-        n <- (str_split(string, "[$[:alpha:]]+") %>%
+        n <- (stringr::str_split(string, "[$[:alpha:]]+") %>%
             unlist())[1] %>%
             as.double()
-        unit <- str_extract_all(string, "[[:alpha:]]+")[[1]]
+        unit <- stringr::str_extract_all(string, "[[:alpha:]]+")[[1]]
         if (is.null(custom_suff) != TRUE) {
             return(n * base**(which(custom_suff == unit)))
         }

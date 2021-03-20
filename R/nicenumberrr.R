@@ -147,6 +147,7 @@ to_numeric <- function(string, family = "number", errors = "raise", custom_suff 
 #' @export
 #'
 #' @examples
+#' df <- data.frame(A = c(1000, 10000), B = c(1000000, 100000))
 #' to_df(df, col_names = c("A", "B"), transform_type = "human")
 to_df <- function(df, col_names = NULL, transform_type = "human", family = "number", errors = "raise", ...) {
     if (is.null(col_names)) {

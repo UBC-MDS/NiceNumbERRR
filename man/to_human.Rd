@@ -28,5 +28,4 @@ Convert large number to human readable string
 \examples{
 to_human(69420, prec = 1)
 "69.4K"
-
 }

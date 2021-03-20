@@ -4,7 +4,7 @@
 \alias{to_numeric}
 \title{Convert human-readable string to numeric number}
 \usage{
-to_numeric(string, family = "number", errors = "throw", custom_suff = NULL)
+to_numeric(string, family = "number", errors = "raise", custom_suff = NULL)
 }
 \arguments{
 \item{string}{string}

@@ -68,7 +68,7 @@ This is a basic example which shows how to generate summary statistics and condu
 #install.packages("NiceNumbERRR")
 #library(NiceNumbERRR)
 #to_human(78950000, prec = 0, family = "numeric") 
-#to_color(1234, c('red', 'yellow'))
+#to_color(1234L, c('red', 'yellow'))
 
 ```
 

@@ -1,5 +1,3 @@
-library(stringr)
-library(tidyverse)
 
 suffixes <- list(
     number = c("K", "M", "B", "T", "Q"),

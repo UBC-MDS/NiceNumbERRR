@@ -134,7 +134,7 @@ to_numeric <- function(string, family = "number", errors = "raise", custom_suff 
 
 
 #' Change the formatting of data in column(s) of a dataframe to either human readable or numeric
-#'
+#' @import tidyverse
 #' @param df dataframe, dataframe to apply formatting
 #' @param col_names str or vector, column names to apply formatting (default is all columns)
 #' @param transform_type str, type of transformation (e.g. human, num)
@@ -235,3 +235,4 @@ to_color <- function(number, colors = c("red", "green", "yellow", "blue")) {
 
     ans
 }
+

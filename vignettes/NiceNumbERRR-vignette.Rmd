@@ -1,0 +1,114 @@
+---
+title: "Go through NiceNumbERRR package"
+author: Jayme Gordon, Cameron Harris, Guanshu Tao, Zhiyong Wang
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Go through NiceNumbERRR package}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+options("getSymbols.warning4.0"=FALSE, 
+        warn=-1,
+        rmarkdown.html_vignette.check_title = FALSE)
+```
+
+```{r setup}
+library(NiceNumbERRR)
+```
+
+## Brief introduction of this package
+
+This package provides basic functions that make numbers display nicely. In most real-world problems, the datasets are raw and we need to deal with number formats to make them readable for humans or for computers. Usually, a few or more lines of coding are needed while dealing with number-display problems so we are thinking of compressing the time and programming work on this issue. This package solves this kind of problems in a way of transfer forward and backward from long digit numbers to human-readable ones. There are functions doing single number transactions, column transactions from a data frame, and displaying colors of input numbers.  
+
+## Try this package on a toy dataframe
+
+| number | human | filesize_human | filesize_bytes |
+|------:|:-----|---------|:------:|
+|  12000  |  12K  |    22.6MB   |    1200000  |
+|  123998  |  $123M |   123KB   |   12366667  |
+|    8800000  |   $133.6556B |     8.889GB   |     1888889  |
+
+```{r}
+# create the toy data above in R
+df <- tibble::tibble(number = c(12000, 123998, 8800000), human = c("12K", "$123M", "$133.6556B"), filesize_human = c("22.6MB", "123KB", " 8.889GB"), filesize_bytes = c(1200000, 12366667, 1888889))
+
+```
+
+## Examples of each functions in this package
+Let's try these functions one by one.
+
+### 1. `to_human`
+
+This function converts numeric value to human-readable string representations. Users need to use a specific number as input and choose decimal precision and prefixes of filesize or numbers as optionals. The function will return a human-readable string.
+
+Let's convert each value from number column in toy dataframe to human-readable strings:
+
+```{r}
+for (i in 1:length(df$number)){
+  print(to_human(df$number[i]))
+}
+
+
+```
+Then let's try converting filesizes:
+
+```{r}
+for (i in 1:length(df$filesize_bytes)){
+  print(to_human(df$number[i], family = "filesize"))
+}
+
+
+```
+
+### 2. `to_numeric`
+
+How about changing from human-readable string back to numeric values?
+
+This function converts a human-readable value to a Python readable numeric value. Users need to use a specific human-readable string of numbers as input and choose the prefixes of filesize or numbers as optionals. The function will return a float.
+
+We can try the human column in toy dataframe:
+
+```{r}
+for (i in 1:length(df$human)){
+  print(to_numeric(df$human[i]))
+}
+
+```
+Try filesize_human column as well:
+
+```{r}
+for (i in 1:length(df$filesize_human)){
+  print(to_numeric(df$filesize_human[i], family = "filesize"))
+}
+
+```
+
+### 3. `to_df`
+
+We have two functions `to_human` and `to_numeric` to convert single values. But changing the whole column just using one function will be much convenient. Here it comes:
+
+This function changes the formatting of text in one or more columns of data in a dataframe. The inputs should include a data frame, column name(s), and two optionals: transform type(eg. human) and type of prefixes. The function will return a dataframe with the values from the input columns transferred to the transform type(human-readable by default).
+
+Let's try convert two columns from toy dataframe:
+```{r}
+to_df(df, col_names = c("number", "filesize_bytes"), transform_type = "human")
+
+```
+### 4. `to_color`
+
+Besides converting methods introduced above, here comes another function to display number nicer.
+
+This function separate numeric values to parts starting from the right and each part contains three digits. Then it gives different colors to each part and the default colors are red, green, yellow, and blue. Users need to use a specific number as input and choose a list of colors they want to assign on the number as an optional. The function will return a string that can be used in print() function to visual numbers with colors in the terminal.
+
+Let's give it a try:
+```{r}
+to_color(1234567L, c("red", "green", "yellow", "blue"))
+
+```
+The combination of numbers, slashes and letters represents the color for that number. These colored strings cannot display in R for now, but works in terminal.

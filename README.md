@@ -48,7 +48,7 @@ function will return a human-readable string.
 
 -   `to_numeric`
 
-This function converts a human-readble value to a Python readable
+This function converts a human-readable value to a Python readable
 numeric value. Users need to use a specific human-readable string of
 numbers as input and choose the prefixes of filesize or numbers as
 optionals. The function will return a float.

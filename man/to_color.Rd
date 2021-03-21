@@ -19,5 +19,4 @@ Give all parts of the number with different colors
 }
 \examples{
 to_color(1234567L, c("red", "green", "yellow", "blue"))
-
 }

@@ -25,6 +25,8 @@ to_df(
 \item{errors}{'raise', 'coerce', default 'raise'
 If 'raise', then invalid parsing will raise an exception.
 If 'coerce', then invalid parsing will return NA.}
+
+\item{...}{Additional formatting arguments separated by commas, e.g. 'prec'. See full documentation for more details.}
 }
 \value{
 dataframe with formatting applied
@@ -35,5 +37,4 @@ Change the formatting of data in column(s) of a dataframe to either human readab
 \examples{
 df <- data.frame(A = c(1000, 10000), B = c(1000000, 100000))
 to_df(df, col_names = c("A", "B"), transform_type = "human")
-
 }

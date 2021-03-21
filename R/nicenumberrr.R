@@ -132,9 +132,9 @@ to_numeric <- function(string, family = "number", errors = "raise", custom_suff 
     }
 }
 
-
 #' Change the formatting of data in column(s) of a dataframe to either human readable or numeric
-#' @import tidyverse
+#' @import tidyverse purrr dplyr
+#' @importFrom rlang :=
 #' @param df dataframe, dataframe to apply formatting
 #' @param col_names str or vector, column names to apply formatting (default is all columns)
 #' @param transform_type str, type of transformation (e.g. human, num)
@@ -154,42 +154,35 @@ to_df <- function(df, col_names = NULL, transform_type = "human", family = "numb
     if (is.null(col_names)) {
         col_names <- colnames(df)
     }
-
     # Check inputs for errors
     if (!is.data.frame(df)) {
         err <- "Wrong input type for df, must be a dataframe!"
         return(throw_err(err, errors))
     }
-
     if (!is.character(col_names) || !is.vector(col_names)) {
         err <- "Wrong input type for col_names, must be a character or character vector!"
         return(throw_err(err, errors))
     }
-
     if (sum(is.element(col_names, colnames(df))) != length(col_names)) {
         err <- "One or more col_names missing from input df!"
         return(throw_err(err, errors))
     }
-
     if (!is.element(transform_type, c("human", "num"))) {
         err <- "Wrong input for transform type, try 'human' or 'num'"
         return(throw_err(err, errors))
     }
-
     # Function body
     if (transform_type == "human") {
         for (col in col_names){
-            col <- sym(col)
-            df <- df %>%  mutate({{ col }} := map(!!col, to_human, ...))
+            col <- dplyr::sym(col)
+            df <- df %>%  dplyr::mutate({{ col }} := purrr::map(!!col, to_human, ...))
         }
-
     } else if (transform_type == "num") {
         for (col in col_names){
             col <- sym(col)
-            df <- df %>%  mutate({{ col }} := map(!!col, to_numeric, ...))
+            df <- df %>%  mutate({{ col }} := purrr::map(!!col, to_numeric, ...))
         }
     }
-
     return(df)
 }
 

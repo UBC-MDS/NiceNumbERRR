@@ -74,9 +74,8 @@ test_to_df <- function() {
     # test return values
     test_that("Incorrect return values!", {
         expect_equal(dim(to_df(test_df)), dim(test_df))
-        expect_equal(to_df(test_df, col_names = "A")[1, 1], "1K")
-        expect_equal(to_df(human_df, col_names = "A", transform_type = "num")[1, 1], 1000)
-        expect_equal(num_df$A[1], test_df$A[1])
+        expect_equal(to_df(test_df, col_names = "A")[1, 1], list("1K"))
+        expect_equal(to_df(human_df, col_names = "A", transform_type = "num")[1, 1], list(1000))
     })
 }
 

@@ -142,7 +142,8 @@ to_numeric <- function(string, family = "number", errors = "raise", custom_suff 
 #' @param errors 'raise', 'coerce', default 'raise'
 #'                If 'raise', then invalid parsing will raise an exception.
 #'                If 'coerce', then invalid parsing will return NA.
-#' @param ...
+#' @param ... Additional formatting arguments separated by commas, e.g. 'prec'. See full documentation for more details.
+#'
 #' @return dataframe with formatting applied
 #' @export
 #'

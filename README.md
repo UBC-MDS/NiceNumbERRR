@@ -6,7 +6,7 @@
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/UBC-MDS/NiceNumbERRR/workflows/R-CMD-check/badge.svg)](https://github.com/UBC-MDS/NiceNumbERRR/actions)
-[![codecov](https://codecov.io/gh/UBC-MDS/NiceNumbERRR/branch/master/graph/badge.svg?token=MF0J6UO2ST)](https://codecov.io/gh/UBC-MDS/NiceNumbERRR)
+[![codecov](https://codecov.io/gh/UBC-MDS/NiceNumbERRR/branch/main/graph/badge.svg?token=MF0J6UO2ST)](https://codecov.io/gh/UBC-MDS/NiceNumbERRR)
 <!-- badges: end -->
 
 This R package provides basic functions that make numbers display

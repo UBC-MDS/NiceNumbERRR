@@ -72,16 +72,20 @@ want to assign on the number as an optional. The function will return a
 string that can be used in print() function to visual numbers with
 colors.
 
+## Documentation
+- [Vignette homepage](https://ubc-mds.github.io/NiceNumbERRR/index.html)
+- [Go through NiceNumbERRR package](https://ubc-mds.github.io/NiceNumbERRR/articles/NiceNumbERRR-vignette.html)
+
 ## Example
 
 This is a basic example which shows how to generate summary statistics
 and conduct moving average modelling:
 
 ``` r
-#install.packages("NiceNumbERRR")
-#library(NiceNumbERRR)
-#to_human(78950000, prec = 0, family = "numeric") 
-#to_color(1234L, c('red', 'yellow'))
+install.packages("NiceNumbERRR")
+library(NiceNumbERRR)
+to_human(78950000, prec = 0, family = "numeric") 
+to_color(1234L, c('red', 'yellow'))
 ```
 
 ## R Ecosystem

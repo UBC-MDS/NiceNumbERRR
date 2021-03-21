@@ -87,6 +87,7 @@ library(NiceNumbERRR)
 to_human(78950000, prec = 0, family = "numeric") 
 to_color(1234L, c('red', 'yellow'))
 ```
+For further examples please visit the [article section](https://ubc-mds.github.io/NiceNumbERRR/articles/NiceNumbERRR-vignette.html) of the NiceNumbERRR package.
 
 ## R Ecosystem
 

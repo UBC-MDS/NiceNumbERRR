@@ -43,3 +43,7 @@ Config/testthat/edition: 3
 VignetteBuilder: knitr
 Depends: 
     tidyverse
+Imports: 
+    dplyr,
+    purrr,
+    rlang
